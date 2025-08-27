@@ -902,9 +902,8 @@ class _LayerNormLinear(torch.autograd.Function):
                     if not ctx.return_layernorm_output:
                         clear_tensor_data(ln_out_total)
                     elif (
-                        ((ln_out_total is not ln_out) or not ctx.ln_out_return_is_ln_out)
-                        and not ctx.ub_overlap_ag
-                    ):
+                        (ln_out_total is not ln_out) or not ctx.ln_out_return_is_ln_out
+                    ) and not ctx.ub_overlap_ag:
                         clear_tensor_data(ln_out_total)
 
                 # Update grad input if overlapping reduce-scatter with wgrad GEMM
